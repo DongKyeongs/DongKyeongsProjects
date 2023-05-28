@@ -1,5 +1,7 @@
 package com.dkp.dk;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,7 @@ class DkProjectApplicationTests {
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
+		assertThat();
 	}
 	
 	@Test
