@@ -1,0 +1,87 @@
+.price-chart {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.interval-selector,
+.indicator-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.interval-selector button,
+.indicator-selector button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.interval-selector button:hover,
+.indicator-selector button:hover {
+    background: #f5f5f5;
+}
+
+.interval-selector button.active,
+.indicator-selector button.active {
+    background: #2196f3;
+    color: white;
+    border-color: #2196f3;
+}
+
+.chart-container {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+/* 다크 모드 스타일 */
+.price-chart.dark {
+    background: #1e1e1e;
+}
+
+.price-chart.dark .chart-header h3 {
+    color: #fff;
+}
+
+.price-chart.dark .interval-selector button,
+.price-chart.dark .indicator-selector button {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #fff;
+}
+
+.price-chart.dark .interval-selector button:hover,
+.price-chart.dark .indicator-selector button:hover {
+    background: #404040;
+}
+
+.price-chart.dark .interval-selector button.active,
+.price-chart.dark .indicator-selector button.active {
+    background: #2196f3;
+    border-color: #2196f3;
+} 

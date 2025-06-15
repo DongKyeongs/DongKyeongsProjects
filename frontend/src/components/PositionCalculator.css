@@ -1,0 +1,143 @@
+.position-calculator {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.position-calculator h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.calculator-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+.input-group input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    border-color: #2196f3;
+    outline: none;
+}
+
+.margin-type-selector,
+.position-selector {
+    display: flex;
+    gap: 10px;
+    grid-column: span 2;
+}
+
+.margin-type-selector button,
+.position-selector button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.margin-type-selector button.active,
+.position-selector button.active {
+    background: #2196f3;
+    color: white;
+    border-color: #2196f3;
+}
+
+.position-selector button.long.active {
+    background: #4caf50;
+    border-color: #4caf50;
+}
+
+.position-selector button.short.active {
+    background: #f44336;
+    border-color: #f44336;
+}
+
+.calculation-results {
+    background: #f5f5f5;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.result-item:last-child {
+    margin-bottom: 0;
+}
+
+.result-item span:first-child {
+    color: #666;
+}
+
+.result-item span:last-child {
+    font-weight: 500;
+}
+
+.result-item .profit {
+    color: #4caf50;
+}
+
+.result-item .loss {
+    color: #f44336;
+}
+
+/* 다크 모드 스타일 */
+.position-calculator.dark {
+    background: #2d2d2d;
+}
+
+.position-calculator.dark h3 {
+    color: #fff;
+}
+
+.position-calculator.dark .input-group label {
+    color: #ccc;
+}
+
+.position-calculator.dark .input-group input {
+    background: #1e1e1e;
+    border-color: #404040;
+    color: #fff;
+}
+
+.position-calculator.dark .calculation-results {
+    background: #1e1e1e;
+}
+
+.position-calculator.dark .result-item span:first-child {
+    color: #ccc;
+}
+
+.position-calculator.dark button {
+    background: #1e1e1e;
+    border-color: #404040;
+    color: #fff;
+} 
