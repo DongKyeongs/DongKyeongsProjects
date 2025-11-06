@@ -22,4 +22,10 @@ public interface AmlAlertRepository extends JpaRepository<AmlAlert, Long> {
 
     @Query("SELECT COUNT(a) FROM AmlAlert a WHERE a.user.id = :userId AND a.status = 'OPEN'")
     long countOpenAlertsByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT a FROM AmlAlert a WHERE a.status = 'OPEN' OR a.status = 'INVESTIGATING'")
+    List<AmlAlert> findOpenAlerts();
+
+    @Query("SELECT COUNT(a) FROM AmlAlert a WHERE a.status = 'OPEN' OR a.status = 'INVESTIGATING'")
+    long countOpenAlerts();
 }

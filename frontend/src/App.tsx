@@ -8,6 +8,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Exchange from './components/Exchange';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminDashboard from './components/admin/AdminDashboard';
+import UserManagement from './components/admin/UserManagement';
+import FeeManagement from './components/admin/FeeManagement';
+import KycAmlManagement from './components/admin/KycAmlManagement';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +22,15 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/exchange" element={<Exchange />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="fees" element={<FeeManagement />} />
+          <Route path="kyc-aml" element={<KycAmlManagement />} />
+        </Route>
+
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

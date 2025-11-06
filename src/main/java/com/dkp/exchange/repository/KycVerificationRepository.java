@@ -18,4 +18,7 @@ public interface KycVerificationRepository extends JpaRepository<KycVerification
 
     @Query("SELECT k FROM KycVerification k WHERE k.status = 'PENDING' OR k.status = 'REVIEWING'")
     List<KycVerification> findPendingVerifications();
+
+    @Query("SELECT COUNT(k) FROM KycVerification k WHERE k.status = 'PENDING' OR k.status = 'REVIEWING'")
+    long countPendingVerifications();
 }

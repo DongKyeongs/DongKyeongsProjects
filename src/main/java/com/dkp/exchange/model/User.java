@@ -31,6 +31,15 @@ public class User {
     @Column(nullable = false)
     private BigDecimal ethBalance = BigDecimal.ZERO;
 
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    @Column(nullable = false)
+    private boolean tradingEnabled = true;
+
+    @Column(nullable = false)
+    private boolean withdrawalEnabled = true;
+
     @Version
     private Long version;
 } 
