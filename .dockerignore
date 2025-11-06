@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Build
+build/
+target/
+.gradle/
+
+# IDE
+.idea/
+*.iml
+*.iws
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Application
+*.properties
+application-local.yml

@@ -1,5 +1,6 @@
 package com.dkp.exchange.dto;
 
+import com.dkp.exchange.model.Order;
 import com.dkp.exchange.model.OrderType;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 public class OrderRequest {
     private String symbol;
     private OrderType type;
+    private Order.OrderSide side;
     private BigDecimal price;
     private BigDecimal quantity;
 } 

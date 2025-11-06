@@ -14,10 +14,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private String userId;
-
-    @Column(nullable = false)
-    private String pair;
+    private String symbol;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -27,14 +24,14 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderSide side;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 20, scale = 8)
     private BigDecimal price;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
+    @Column(nullable = false, precision = 20, scale = 8)
+    private BigDecimal quantity;
 
-    @Column(nullable = false)
-    private BigDecimal filledAmount;
+    @Column(nullable = false, precision = 20, scale = 8)
+    private BigDecimal filledQuantity;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -43,6 +40,9 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Version
+    private Long version;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -54,7 +54,7 @@ public class Order {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-        filledAmount = BigDecimal.ZERO;
+        filledQuantity = BigDecimal.ZERO;
         status = OrderStatus.PENDING;
     }
 

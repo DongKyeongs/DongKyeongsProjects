@@ -1,15 +1,21 @@
 package com.dkp.exchange.dto;
 
-import com.dkp.exchange.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthResponse {
     private String token;
-    private User user;
-
-    public AuthResponse(String token, User user) {
-        this.token = token;
-        this.user = user;
-    }
+    private String username;
+    private String role;
+    private BigDecimal usdtBalance;
+    private BigDecimal btcBalance;
+    private BigDecimal ethBalance;
 } 

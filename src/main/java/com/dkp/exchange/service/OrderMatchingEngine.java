@@ -21,6 +21,7 @@ public class OrderMatchingEngine {
     private final OrderRepository orderRepository;
     private final TradeRepository tradeRepository;
     private final UserBalanceService userBalanceService;
+    private final FeeService feeService;
 
     // 매수 주문 큐 (가격 높은 순)
     private final Queue<Order> buyOrders = new PriorityQueue<>(
@@ -34,7 +35,7 @@ public class OrderMatchingEngine {
 
     @Transactional
     public void processOrder(Order order) {
-        if (order.getType() == OrderType.BUY) {
+        if (order.getSide() == Order.OrderSide.BUY) {
             processBuyOrder(order);
         } else {
             processSellOrder(order);
@@ -98,6 +99,13 @@ public class OrderMatchingEngine {
     }
 
     private void executeTrade(Order buyOrder, Order sellOrder, BigDecimal quantity, BigDecimal price) {
+        // 체결 금액 계산
+        BigDecimal tradeAmount = quantity.multiply(price);
+
+        // 수수료 계산
+        BigDecimal buyerFee = feeService.calculateTradeFee(buyOrder.getUser(), buyOrder, tradeAmount);
+        BigDecimal sellerFee = feeService.calculateTradeFee(sellOrder.getUser(), sellOrder, tradeAmount);
+
         // 체결 내역 생성
         Trade trade = new Trade();
         trade.setSymbol(buyOrder.getSymbol());
@@ -111,8 +119,8 @@ public class OrderMatchingEngine {
         updateOrderStatus(buyOrder, quantity);
         updateOrderStatus(sellOrder, quantity);
 
-        // 사용자 잔고 업데이트
-        userBalanceService.updateBalances(buyOrder, sellOrder, quantity, price);
+        // 사용자 잔고 업데이트 (수수료 포함)
+        userBalanceService.updateBalancesWithFee(buyOrder, sellOrder, quantity, price, buyerFee, sellerFee);
     }
 
     private void updateOrderStatus(Order order, BigDecimal filledQuantity) {

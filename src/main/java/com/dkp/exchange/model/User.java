@@ -30,4 +30,7 @@ public class User {
 
     @Column(nullable = false)
     private BigDecimal ethBalance = BigDecimal.ZERO;
+
+    @Version
+    private Long version;
 } 

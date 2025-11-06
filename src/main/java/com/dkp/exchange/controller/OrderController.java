@@ -54,4 +54,24 @@ public class OrderController {
         orderService.cancelOrder(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderResponse> modifyOrder(
+            @PathVariable Long id,
+            @RequestBody ModifyOrderRequest request) {
+        OrderResponse response = orderService.modifyOrder(id, request.getPrice(), request.getQuantity());
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/cancel-all")
+    public ResponseEntity<Void> cancelAllOrders(@RequestParam(required = false) String symbol) {
+        orderService.cancelAllOrders(symbol);
+        return ResponseEntity.ok().build();
+    }
+
+    @lombok.Data
+    public static class ModifyOrderRequest {
+        private java.math.BigDecimal price;
+        private java.math.BigDecimal quantity;
+    }
 } 

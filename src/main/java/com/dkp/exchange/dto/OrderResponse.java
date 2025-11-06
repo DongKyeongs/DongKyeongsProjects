@@ -13,6 +13,7 @@ public class OrderResponse {
     private Long id;
     private String symbol;
     private OrderType type;
+    private Order.OrderSide side;
     private OrderStatus status;
     private BigDecimal price;
     private BigDecimal quantity;
@@ -25,6 +26,7 @@ public class OrderResponse {
         response.setId(order.getId());
         response.setSymbol(order.getSymbol());
         response.setType(order.getType());
+        response.setSide(order.getSide());
         response.setStatus(order.getStatus());
         response.setPrice(order.getPrice());
         response.setQuantity(order.getQuantity());
