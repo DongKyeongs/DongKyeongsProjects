@@ -138,6 +138,61 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ExchangeException.class)
+    public ResponseEntity<ErrorResponse> handleExchangeException(
+            ExchangeException ex, WebRequest request) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getStatus().value(),
+                ex.getErrorCode(),
+                ex.getMessage(),
+                request.getDescription(false).replace("uri=", ""),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(error, ex.getStatus());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(
+            UserNotFoundException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(
+            UserAlreadyExistsException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderNotFoundException(
+            OrderNotFoundException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(CoinNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCoinNotFoundException(
+            CoinNotFoundException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedAccessException(
+            UnauthorizedAccessException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(RateLimitExceededException.class)
+    public ResponseEntity<ErrorResponse> handleRateLimitExceededException(
+            RateLimitExceededException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
+    @ExceptionHandler(WithdrawalException.class)
+    public ResponseEntity<ErrorResponse> handleWithdrawalException(
+            WithdrawalException ex, WebRequest request) {
+        return handleExchangeException(ex, request);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(
             Exception ex, WebRequest request) {
