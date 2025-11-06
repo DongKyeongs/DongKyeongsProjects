@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'exchange-cluster'
+    replica: 'prometheus-1'
+
+scrape_configs:
+  - job_name: 'exchange-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['app:8080']
+        labels:
+          service: 'exchange-backend'
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+        labels:
+          service: 'redis-cache'
+
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['mysql:3306']
+        labels:
+          service: 'mysql-db'
