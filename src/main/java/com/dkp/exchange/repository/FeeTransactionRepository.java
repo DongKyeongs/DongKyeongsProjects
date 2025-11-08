@@ -14,6 +14,9 @@ import java.util.List;
 public interface FeeTransactionRepository extends JpaRepository<FeeTransaction, Long> {
     List<FeeTransaction> findByUserIdOrderByCreatedAtDesc(Long userId);
 
+    @Query("SELECT f FROM FeeTransaction f WHERE f.user.id = :userId")
+    List<FeeTransaction> findByUserId(@Param("userId") Long userId);
+
     @Query("SELECT SUM(f.feeAmount) FROM FeeTransaction f WHERE f.user.id = :userId AND f.asset = :asset AND f.createdAt >= :startDate")
     BigDecimal sumFeesByUserAndAssetSince(@Param("userId") Long userId, @Param("asset") String asset, @Param("startDate") LocalDateTime startDate);
 

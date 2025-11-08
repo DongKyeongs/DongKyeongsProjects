@@ -31,6 +31,12 @@ const AdminLayout: React.FC = () => {
           <Link to="/admin/fees" className={isActive('/admin/fees')}>
             Fee Management
           </Link>
+          <Link to="/admin/fee-analytics" className={isActive('/admin/fee-analytics')}>
+            Fee Analytics
+          </Link>
+          <Link to="/admin/vip" className={isActive('/admin/vip')}>
+            VIP Management
+          </Link>
           <Link to="/admin/kyc-aml" className={isActive('/admin/kyc-aml')}>
             KYC & AML
           </Link>

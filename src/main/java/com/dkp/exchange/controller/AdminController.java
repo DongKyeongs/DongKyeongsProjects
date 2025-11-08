@@ -1,9 +1,7 @@
 package com.dkp.exchange.controller;
 
 import com.dkp.exchange.model.*;
-import com.dkp.exchange.service.AdminService;
-import com.dkp.exchange.service.KycService;
-import com.dkp.exchange.service.AmlService;
+import com.dkp.exchange.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +22,9 @@ public class AdminController {
     private final AdminService adminService;
     private final KycService kycService;
     private final AmlService amlService;
+    private final VipService vipService;
+    private final FeeAnalyticsService feeAnalyticsService;
+    private final EnhancedFeeService enhancedFeeService;
 
     // ==================== Dashboard ====================
 
@@ -220,5 +221,82 @@ public class AdminController {
         // Placeholder for updating system settings
         log.info("System settings updated: {}", settings);
         return ResponseEntity.ok(Map.of("message", "Settings updated successfully"));
+    }
+
+    // ==================== VIP Management ====================
+
+    @GetMapping("/vip/user/{userId}")
+    public ResponseEntity<VipService.VipInfo> getUserVipInfo(@PathVariable Long userId) {
+        VipService.VipInfo vipInfo = vipService.getVipInfo(userId);
+        return ResponseEntity.ok(vipInfo);
+    }
+
+    @PostMapping("/vip/user/{userId}/update")
+    public ResponseEntity<Map<String, Object>> updateUserVipLevel(@PathVariable Long userId) {
+        VipLevel newLevel = vipService.updateUserVipLevel(userId);
+        return ResponseEntity.ok(Map.of(
+                "message", "VIP level updated successfully",
+                "newLevel", newLevel
+        ));
+    }
+
+    @PostMapping("/vip/user/{userId}/set-level")
+    public ResponseEntity<Map<String, String>> setUserVipLevel(
+            @PathVariable Long userId,
+            @RequestParam VipLevel level) {
+        vipService.setUserVipLevel(userId, level);
+        return ResponseEntity.ok(Map.of("message", "VIP level set successfully"));
+    }
+
+    @PostMapping("/vip/update-all")
+    public ResponseEntity<Map<String, String>> updateAllVipLevels() {
+        vipService.updateAllUsersVipLevels();
+        return ResponseEntity.ok(Map.of("message", "All VIP levels updated successfully"));
+    }
+
+    @GetMapping("/vip/stats")
+    public ResponseEntity<List<FeeAnalyticsService.VipFeeStats>> getVipStats() {
+        List<FeeAnalyticsService.VipFeeStats> stats = feeAnalyticsService.getVipFeeStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    // ==================== Fee Analytics ====================
+
+    @GetMapping("/fee-analytics/overall")
+    public ResponseEntity<FeeAnalyticsService.OverallFeeStats> getOverallFeeStats() {
+        FeeAnalyticsService.OverallFeeStats stats = feeAnalyticsService.getOverallFeeStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/fee-analytics/user/{userId}")
+    public ResponseEntity<FeeAnalyticsService.UserFeeStats> getUserFeeStats(@PathVariable Long userId) {
+        FeeAnalyticsService.UserFeeStats stats = feeAnalyticsService.getUserFeeStats(userId);
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/fee-analytics/by-symbol")
+    public ResponseEntity<List<FeeAnalyticsService.SymbolFeeStats>> getSymbolFeeStats() {
+        List<FeeAnalyticsService.SymbolFeeStats> stats = feeAnalyticsService.getSymbolFeeStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/fee-analytics/by-vip")
+    public ResponseEntity<List<FeeAnalyticsService.VipFeeStats>> getFeeStatsByVip() {
+        List<FeeAnalyticsService.VipFeeStats> stats = feeAnalyticsService.getVipFeeStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/fee-analytics/daily")
+    public ResponseEntity<List<FeeAnalyticsService.DailyFeeStats>> getDailyFeeStats(
+            @RequestParam(defaultValue = "30") int days) {
+        List<FeeAnalyticsService.DailyFeeStats> stats = feeAnalyticsService.getDailyFeeStats(days);
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/fee-analytics/discount-info/{userId}")
+    public ResponseEntity<EnhancedFeeService.FeeDiscountInfo> getFeeDiscountInfo(@PathVariable Long userId) {
+        com.dkp.exchange.model.User user = adminService.getUserDetails(userId);
+        EnhancedFeeService.FeeDiscountInfo info = enhancedFeeService.getFeeDiscountInfo(user);
+        return ResponseEntity.ok(info);
     }
 }
