@@ -15,6 +15,8 @@ import FeeManagement from './components/admin/FeeManagement';
 import FeeAnalytics from './components/admin/FeeAnalytics';
 import VipManagement from './components/admin/VipManagement';
 import KycAmlManagement from './components/admin/KycAmlManagement';
+import SignalProviders from './components/copytrading/SignalProviders';
+import MyCopies from './components/copytrading/MyCopies';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +26,10 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/exchange" element={<Exchange />} />
+
+        {/* Copy Trading Routes */}
+        <Route path="/copy-trading" element={<SignalProviders />} />
+        <Route path="/copy-trading/my-copies" element={<MyCopies />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
